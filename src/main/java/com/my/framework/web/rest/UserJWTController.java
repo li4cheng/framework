@@ -6,6 +6,8 @@ import com.my.framework.web.rest.vm.LoginVM;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +24,7 @@ import javax.validation.Valid;
  */
 @RestController
 @RequestMapping("/api")
+@Api(tags = "登录")
 public class UserJWTController {
 
     private final TokenProvider tokenProvider;
@@ -34,6 +37,7 @@ public class UserJWTController {
     }
 
     @PostMapping("/authenticate")
+    @ApiOperation(value = "登录接口")
     public ResponseEntity<JWTToken> authorize(@Valid @RequestBody LoginVM loginVM) {
 
         UsernamePasswordAuthenticationToken authenticationToken =
@@ -47,6 +51,7 @@ public class UserJWTController {
         httpHeaders.add(JWTFilter.AUTHORIZATION_HEADER, "Bearer " + jwt);
         return new ResponseEntity<>(new JWTToken(jwt), httpHeaders, HttpStatus.OK);
     }
+
     /**
      * Object to return as body in JWT Authentication.
      */
