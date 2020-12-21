@@ -940,6 +940,24 @@
                     <artifactId>swagger-bootstrap-ui</artifactId>
                     <version>1.9.6</version>
                 </dependency>
+
+                <!-- 引入dsl依赖 -->
+                <dependency>
+                    <groupId>com.querydsl</groupId>
+                    <artifactId>querydsl-sql</artifactId>
+                    <version>4.2.1</version>
+                </dependency>
+                <dependency>
+                    <groupId>com.querydsl</groupId>
+                    <artifactId>querydsl-apt</artifactId>
+                    <version>4.2.1</version>
+                </dependency>
+                <dependency>
+                    <groupId>com.querydsl</groupId>
+                    <artifactId>querydsl-jpa</artifactId>
+                    <version>4.2.1</version>
+                </dependency>
+
             </dependencies>
             <properties>
                 <!-- default Spring profiles -->
