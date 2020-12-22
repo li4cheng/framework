@@ -1,0 +1,42 @@
+{
+  "name": "OperationLog",
+  "fields": [
+    {
+      "fieldName": "operationLogCode",
+      "fieldType": "String",
+      "javadoc": "操作日志编号"
+    },
+    {
+      "fieldName": "operatorId",
+      "fieldType": "Long",
+      "javadoc": "操作人ID"
+    },
+    {
+      "fieldName": "operatorName",
+      "fieldType": "String",
+      "javadoc": "操作人姓名"
+    },
+    {
+      "fieldName": "operationTime",
+      "fieldType": "Instant",
+      "javadoc": "操作时间"
+    },
+    {
+      "fieldName": "interfaceName",
+      "fieldType": "String",
+      "javadoc": "调用接口名称"
+    }
+  ],
+  "relationships": [],
+  "changelogDate": "20201222011911",
+  "entityTableName": "operation_log",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

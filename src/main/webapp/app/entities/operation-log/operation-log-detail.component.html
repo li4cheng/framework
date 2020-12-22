@@ -1,0 +1,46 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="operationLog">
+            <h2><span jhiTranslate="frameworkApp.operationLog.detail.title">Operation Log</span> {{ operationLog.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="frameworkApp.operationLog.operationLogCode" [ngbTooltip]="'frameworkApp.operationLog.help.operationLogCode' | translate">Operation Log Code</span></dt>
+                <dd>
+                    <span>{{ operationLog.operationLogCode }}</span>
+                </dd>
+                <dt><span jhiTranslate="frameworkApp.operationLog.operatorId" [ngbTooltip]="'frameworkApp.operationLog.help.operatorId' | translate">Operator Id</span></dt>
+                <dd>
+                    <span>{{ operationLog.operatorId }}</span>
+                </dd>
+                <dt><span jhiTranslate="frameworkApp.operationLog.operatorName" [ngbTooltip]="'frameworkApp.operationLog.help.operatorName' | translate">Operator Name</span></dt>
+                <dd>
+                    <span>{{ operationLog.operatorName }}</span>
+                </dd>
+                <dt><span jhiTranslate="frameworkApp.operationLog.operationTime" [ngbTooltip]="'frameworkApp.operationLog.help.operationTime' | translate">Operation Time</span></dt>
+                <dd>
+                    <span>{{ operationLog.operationTime }}</span>
+                </dd>
+                <dt><span jhiTranslate="frameworkApp.operationLog.interfaceName" [ngbTooltip]="'frameworkApp.operationLog.help.interfaceName' | translate">Interface Name</span></dt>
+                <dd>
+                    <span>{{ operationLog.interfaceName }}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/operation-log', operationLog.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

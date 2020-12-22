@@ -1,0 +1,7 @@
+entity OperationLog {
+    operationLogCode    String  /** 操作日志编号 */
+    operatorId          Long    /** 操作人ID */
+    operatorName        String  /** 操作人姓名 */
+    operationTime       Instant /** 操作时间 */
+    interfaceName       String  /** 调用接口名称 */
+}
