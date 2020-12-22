@@ -1,5 +1,6 @@
 package com.my.framework.web.rest;
 
+import com.my.framework.customConfig.log.Log;
 import com.my.framework.security.jwt.JWTFilter;
 import com.my.framework.security.jwt.TokenProvider;
 import com.my.framework.web.rest.vm.LoginVM;
@@ -38,6 +39,7 @@ public class UserJWTController {
 
     @PostMapping("/authenticate")
     @ApiOperation(value = "登录接口")
+    @Log
     public ResponseEntity<JWTToken> authorize(@Valid @RequestBody LoginVM loginVM) {
 
         UsernamePasswordAuthenticationToken authenticationToken =
