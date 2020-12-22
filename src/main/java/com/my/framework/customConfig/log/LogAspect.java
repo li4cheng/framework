@@ -12,6 +12,7 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
@@ -63,7 +64,7 @@ public class LogAspect {
         //保存操作日志
         operationLogService.saveOperationLog(apiOperation == null ? "" : apiOperation.value());
         log.info("{}[{}] 输出值: {", apiOperation == null ? "" : apiOperation.value(), joinPoint.getSignature().getName());
-        log.info("  {}", returnValue);
+        log.info("  {}", returnValue instanceof ResponseEntity ? ((ResponseEntity) returnValue).getHeaders() : returnValue);
         log.info("}");
         log.info("===============end===============");
     }
