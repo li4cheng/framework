@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 /**
  * Mapper for the entity {@link User} and its DTO called {@link UserDTO}.
- *
+ * <p>
  * Normal mappers are generated using MapStruct, this one is hand-coded as MapStruct
  * support is still in beta, and requires a manual step with an IDE.
  */
@@ -43,8 +43,7 @@ public class UserMapper {
             User user = new User();
             user.setId(userDTO.getId());
             user.setLogin(userDTO.getLogin());
-            user.setFirstName(userDTO.getFirstName());
-            user.setLastName(userDTO.getLastName());
+            user.setName(userDTO.getName());
             user.setEmail(userDTO.getEmail());
             user.setImageUrl(userDTO.getImageUrl());
             user.setActivated(userDTO.isActivated());

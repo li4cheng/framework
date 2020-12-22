@@ -6,6 +6,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 
+import com.my.framework.customConfig.currentUser.UserModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -27,6 +28,8 @@ public class TokenProvider {
     private final Logger log = LoggerFactory.getLogger(TokenProvider.class);
 
     private static final String AUTHORITIES_KEY = "auth";
+
+    private static final String CURRENT_USER_KEY = "curr";
 
     private Key key;
 
@@ -61,6 +64,7 @@ public class TokenProvider {
     }
 
     public String createToken(Authentication authentication, boolean rememberMe) {
+        UserModel userModel = (UserModel) authentication.getPrincipal();
         String authorities = authentication.getAuthorities().stream()
             .map(GrantedAuthority::getAuthority)
             .collect(Collectors.joining(","));
@@ -76,6 +80,7 @@ public class TokenProvider {
         return Jwts.builder()
             .setSubject(authentication.getName())
             .claim(AUTHORITIES_KEY, authorities)
+            .claim(CURRENT_USER_KEY, userModel)
             .signWith(key, SignatureAlgorithm.HS512)
             .setExpiration(validity)
             .compact();
@@ -93,7 +98,12 @@ public class TokenProvider {
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
 
-        User principal = new User(claims.getSubject(), "", authorities);
+        LinkedHashMap map = claims.get(CURRENT_USER_KEY, LinkedHashMap.class);
+        UserModel principal = new UserModel(claims.getSubject(),
+            "",
+            authorities,
+            (String) map.get(UserModel.NAME),
+            (String) map.get(UserModel.EMAIL));
 
         return new UsernamePasswordAuthenticationToken(principal, token, authorities);
     }

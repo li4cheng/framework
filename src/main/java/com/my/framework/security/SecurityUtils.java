@@ -1,5 +1,6 @@
 package com.my.framework.security;
 
+import com.my.framework.customConfig.currentUser.UserModel;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
@@ -15,6 +16,18 @@ import java.util.stream.Stream;
 public final class SecurityUtils {
 
     private SecurityUtils() {
+    }
+
+    public static Optional<UserModel> getCurrentUserModel() {
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        return Optional.ofNullable(securityContext.getAuthentication())
+            .map(authentication -> {
+                if (authentication.getPrincipal() instanceof UserModel) {
+                    UserModel userModel = (UserModel) authentication.getPrincipal();
+                    return userModel;
+                }
+                return null;
+            });
     }
 
     /**

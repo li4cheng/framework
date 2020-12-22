@@ -15,12 +15,12 @@ public class CustomExceptionHandler {
     @ExceptionHandler(RuntimeException.class)
     public ErrorMessage processRuntimeException(RuntimeException e, NativeWebRequest request) {
         e.printStackTrace();
-        return new ErrorMessage("捕获RuntimeException", e, request);
+        return new ErrorMessage("捕获RuntimeException:" + e.getMessage(), e, request);
     }
 
     @ExceptionHandler(Exception.class)
     public ErrorMessage processException(Exception e, NativeWebRequest request) {
         e.printStackTrace();
-        return new ErrorMessage("捕获Exception", e, request);
+        return new ErrorMessage("捕获Exception:" + e.getMessage(), e, request);
     }
 }
