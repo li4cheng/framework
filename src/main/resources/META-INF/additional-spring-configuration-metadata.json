@@ -1,0 +1,9 @@
+{
+  "properties": [
+    {
+      "name": "jhipster.application.templatePath",
+      "type": "java.lang.String",
+      "description": "Description for jhipster.application.templatePath."
+    }
+  ]
+}
