@@ -1010,6 +1010,13 @@
                     <version>2.4</version>
                 </dependency>
 
+                <!-- excel相关 -->
+                <dependency>
+                    <groupId>org.apache.poi</groupId>
+                    <artifactId>poi</artifactId>
+                    <version>4.0.1</version>
+                </dependency>
+
             </dependencies>
             <properties>
                 <!-- default Spring profiles -->
