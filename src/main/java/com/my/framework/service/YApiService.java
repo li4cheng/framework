@@ -72,8 +72,8 @@ public class YApiService {
                         for (String key : keyList) {
                             PropertiesDTO propertiesDTO = new PropertiesDTO();
                             propertiesDTO.setProperties(key);
-                            propertiesDTO.setType(transform((((JSONObject)((JSONObject)((JSONObject)otherJson.get("items")).get("properties")).get(key)).get("type").toString()), null));
-                            Object description = (((JSONObject)((JSONObject)((JSONObject)otherJson.get("items")).get("properties")).get(key)).get("description"));
+                            propertiesDTO.setType(transform((((JSONObject) ((JSONObject) ((JSONObject) otherJson.get("items")).get("properties")).get(key)).get("type").toString()), null));
+                            Object description = (((JSONObject) ((JSONObject) ((JSONObject) otherJson.get("items")).get("properties")).get(key)).get("description"));
                             propertiesDTO.setDescription(description == null ? "" : description.toString());
                             reqPropertiesDTOList.add(propertiesDTO);
                         }
@@ -82,8 +82,8 @@ public class YApiService {
                         for (String key : keyList) {
                             PropertiesDTO propertiesDTO = new PropertiesDTO();
                             propertiesDTO.setProperties(key);
-                            propertiesDTO.setType(transform(((JSONObject)((JSONObject)otherJson.get("properties")).get(key)).get("type").toString(), null));
-                            Object description = ((JSONObject)((JSONObject)otherJson.get("properties")).get(key)).get("description");
+                            propertiesDTO.setType(transform(((JSONObject) ((JSONObject) otherJson.get("properties")).get(key)).get("type").toString(), null));
+                            Object description = ((JSONObject) ((JSONObject) otherJson.get("properties")).get(key)).get("description");
                             propertiesDTO.setDescription(description == null ? "" : description.toString());
                             reqPropertiesDTOList.add(propertiesDTO);
                         }
@@ -97,7 +97,7 @@ public class YApiService {
                 params.add("@RequestBody " + upperCaseDtoName + " " + dtoName);
             }
             String resParams = "Void";
-            if (yApiDataList != null && yApiDataList.getResBody() != null) {
+            if (yApiDataList.getResBody() != null) {
                 // 配置返回参数并生成对应的DTO
                 Map<String, Object> resDtoMap = new HashMap<>();
                 JSONObject resJson = JSONObject.parseObject(yApiDataList.getResBody().toString());
