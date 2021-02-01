@@ -32,7 +32,7 @@ public class RequestService {
         return restTemplate.exchange(uri, HttpMethod.POST, httpEntity, JSONObject.class).getBody();
     }
 
-    public JSONObject request(String url, HttpMethod httpMethod, LinkedMultiValueMap<String, String> params, String token) {
+    public JSONObject request(String url, LinkedMultiValueMap<String, String> params, String token, HttpMethod httpMethod) {
         URI uri = UriComponentsBuilder.fromUriString(url).queryParams(params).build().toUri();
         HttpEntity<Void> httpEntity = token == null ? null : httpEntity(token);
         return restTemplate.exchange(uri, httpMethod, httpEntity, JSONObject.class).getBody();
