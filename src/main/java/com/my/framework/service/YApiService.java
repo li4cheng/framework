@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.my.framework.config.ApplicationProperties;
 import com.my.framework.service.dto.yApi.PropertiesDTO;
 import com.my.framework.service.dto.yApi.YApiData;
+import com.my.framework.service.dto.yApi.YApiDataList;
 import com.my.framework.utils.Utils;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -34,9 +35,9 @@ public class YApiService {
 
     public void saveInterface(YApiData yApiData) {
         Map<String, Object> dataMap = new HashMap<String, Object>();
-        dataMap.put("className", StringUtils.isEmpty(yApiData.getDesc()) ? yApiData.getName() : yApiData.getDesc());
+        dataMap.put("className", (StringUtils.isEmpty(yApiData.getDesc()) ? yApiData.getName() : yApiData.getDesc()).replaceAll(" ", ""));
         dataMap.put("tags", yApiData.getName());
-        dataMap.put("data", yApiData.getList().stream().peek(yApiDataList -> {
+        List<YApiDataList> list = yApiData.getList().stream().peek(yApiDataList -> {
             String interfaceName = Utils.camelCase(yApiDataList.getPath().substring(1).split("/\\{")[0]);
             List<String> params = new ArrayList<>();
             // 配置传参格式 及 对应的 QM实体类
@@ -67,25 +68,33 @@ public class YApiService {
                 if (yApiDataList.getReqBodyOther() != null) {
                     JSONObject otherJson = JSONObject.parseObject(yApiDataList.getReqBodyOther().toString());
                     List<String> keyList;
-                    if (otherJson.get("type").equals("array")) {
-                        keyList = new ArrayList<>(((JSONObject) ((JSONObject) otherJson.get("items")).get("properties")).keySet());
-                        for (String key : keyList) {
-                            PropertiesDTO propertiesDTO = new PropertiesDTO();
-                            propertiesDTO.setProperties(key);
-                            propertiesDTO.setType(transform((((JSONObject) ((JSONObject) ((JSONObject) otherJson.get("items")).get("properties")).get(key)).get("type").toString()), null));
-                            Object description = (((JSONObject) ((JSONObject) ((JSONObject) otherJson.get("items")).get("properties")).get(key)).get("description"));
-                            propertiesDTO.setDescription(description == null ? "" : description.toString());
-                            reqPropertiesDTOList.add(propertiesDTO);
+                    if (otherJson.get("type").equals("array") && otherJson.get("items") != null) {
+                        if (((JSONObject) otherJson.get("items")).get("properties") != null) {
+                            keyList = new ArrayList<>(((JSONObject) ((JSONObject) otherJson.get("items")).get("properties")).keySet());
+                            for (String key : keyList) {
+                                PropertiesDTO propertiesDTO = new PropertiesDTO();
+                                propertiesDTO.setProperties(key);
+                                propertiesDTO.setType(transform((((JSONObject) ((JSONObject) ((JSONObject) otherJson.get("items")).get("properties")).get(key)).get("type").toString()), null));
+                                Object description = (((JSONObject) ((JSONObject) ((JSONObject) otherJson.get("items")).get("properties")).get(key)).get("description"));
+                                propertiesDTO.setDescription(description == null ? "" : description.toString());
+                                reqPropertiesDTOList.add(propertiesDTO);
+                            }
+                        } else {
+                            System.out.println("wkn:" + otherJson.get("items"));
                         }
                     } else {//type == object
-                        keyList = new ArrayList<>(((JSONObject) otherJson.get("properties")).keySet());
-                        for (String key : keyList) {
-                            PropertiesDTO propertiesDTO = new PropertiesDTO();
-                            propertiesDTO.setProperties(key);
-                            propertiesDTO.setType(transform(((JSONObject) ((JSONObject) otherJson.get("properties")).get(key)).get("type").toString(), null));
-                            Object description = ((JSONObject) ((JSONObject) otherJson.get("properties")).get(key)).get("description");
-                            propertiesDTO.setDescription(description == null ? "" : description.toString());
-                            reqPropertiesDTOList.add(propertiesDTO);
+                        if (otherJson.get("properties") != null) {
+                            keyList = new ArrayList<>(((JSONObject) otherJson.get("properties")).keySet());
+                            for (String key : keyList) {
+                                PropertiesDTO propertiesDTO = new PropertiesDTO();
+                                propertiesDTO.setProperties(key);
+                                propertiesDTO.setType(transform(((JSONObject) ((JSONObject) otherJson.get("properties")).get(key)).get("type").toString(), null));
+                                Object description = ((JSONObject) ((JSONObject) otherJson.get("properties")).get(key)).get("description");
+                                propertiesDTO.setDescription(description == null ? "" : description.toString());
+                                reqPropertiesDTOList.add(propertiesDTO);
+                            }
+                        } else {
+                            System.out.println(otherJson);
                         }
                     }
                 }
@@ -100,35 +109,38 @@ public class YApiService {
             if (yApiDataList.getResBody() != null) {
                 // 配置返回参数并生成对应的DTO
                 Map<String, Object> resDtoMap = new HashMap<>();
-                JSONObject resJson = JSONObject.parseObject(yApiDataList.getResBody().toString());
-                if (resJson != null && resJson.get("required") != null) {
-                    resDtoMap.put("modelName", interfaceName + "DTO");
-                    List<PropertiesDTO> resPropertiesDTOList = new ArrayList<>();
-                    for (String required : ((List<String>) resJson.get("required"))) {
-                        PropertiesDTO propertiesDTO = new PropertiesDTO();
-                        propertiesDTO.setProperties(required);
-                        String type = ((JSONObject) ((JSONObject) resJson.get("properties")).get(required)).get("type").toString();
-                        if (type.equals("array")) {
-                            propertiesDTO.setType(transform(type, ((JSONObject) ((JSONObject) resJson.get("properties")).get(required))));
-                        } else {
-                            propertiesDTO.setType(transform(type, null));
+                if (yApiDataList.getResBody() instanceof JSONObject) {
+                    JSONObject resJson = JSONObject.parseObject(yApiDataList.getResBody().toString());
+                    if (resJson != null && resJson.get("items") != null && ((JSONObject) resJson.get("items")).get("required") != null) {
+                        resDtoMap.put("modelName", interfaceName + "DTO");
+                        List<PropertiesDTO> resPropertiesDTOList = new ArrayList<>();
+                        for (String required : ((List<String>) ((JSONObject) resJson.get("items")).get("required"))) {
+                            PropertiesDTO propertiesDTO = new PropertiesDTO();
+                            propertiesDTO.setProperties(required);
+                            String type = ((JSONObject) ((JSONObject) ((JSONObject) resJson.get("items")).get("properties")).get(required)).get("type").toString();
+                            if (type.equals("array")) {
+                                propertiesDTO.setType(transform(type, ((JSONObject) ((JSONObject) ((JSONObject) resJson.get("items")).get("properties")).get(required))));
+                            } else {
+                                propertiesDTO.setType(transform(type, null));
+                            }
+                            Object description = ((JSONObject) ((JSONObject) ((JSONObject) resJson.get("items")).get("properties")).get(required)).get("description");
+                            propertiesDTO.setDescription(description == null ? "" : description.toString());
+                            resPropertiesDTOList.add(propertiesDTO);
                         }
-                        Object description = ((JSONObject) ((JSONObject) resJson.get("properties")).get(required)).get("description");
-                        propertiesDTO.setDescription(description == null ? "" : description.toString());
-                        resPropertiesDTOList.add(propertiesDTO);
+                        resDtoMap.put("properties", resPropertiesDTOList);
+                        String dtoName = interfaceName + "DTO";
+                        String upperCaseDtoName = Utils.firstUpperCase(dtoName);
+                        //生成DTO类
+                        outputFile(resDtoMap, upperCaseDtoName, DTO_MODEL);
+                        resParams = upperCaseDtoName.equals("") ? "Void" : upperCaseDtoName;
                     }
-                    resDtoMap.put("properties", resPropertiesDTOList);
-                    String dtoName = interfaceName + "DTO";
-                    String upperCaseDtoName = Utils.firstUpperCase(dtoName);
-                    //生成DTO类
-                    outputFile(resDtoMap, upperCaseDtoName, DTO_MODEL);
-                    resParams = upperCaseDtoName.equals("") ? "Void" : upperCaseDtoName;
                 }
             }
             yApiDataList.setParams(String.join(", ", params));
             yApiDataList.setResParams(resParams);
             yApiDataList.setMethodName(Utils.camelCase(yApiDataList.getPath().substring(1).split("/\\{")[0]));
-        }).collect(Collectors.toList()));
+        }).collect(Collectors.toList());
+        dataMap.put("data", list);
 
         outputFile(dataMap, yApiData.getDesc() == null ? "Null" : yApiData.getDesc(), API_MODEL);
     }

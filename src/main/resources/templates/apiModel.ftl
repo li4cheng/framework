@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Transactional
 @RestController
-@RequestMapping("/api")
+@RequestMapping("")
 @Api(tags = "${tags}")
 <#if className??>
 public class ${className} {
