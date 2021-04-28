@@ -72,7 +72,7 @@ public class FrameworkApp {
         String serverPort = env.getProperty("server.port");
         String contextPath = env.getProperty("server.servlet.context-path");
         if (StringUtils.isBlank(contextPath)) {
-            contextPath = "/";
+            contextPath = "/doc.html";
         }
         String hostAddress = "localhost";
         try {
