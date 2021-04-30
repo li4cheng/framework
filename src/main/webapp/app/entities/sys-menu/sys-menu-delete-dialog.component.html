@@ -1,4 +1,4 @@
-<form *ngIf="operationLog" name="deleteForm" (ngSubmit)="confirmDelete(operationLog?.id!)">
+<form *ngIf="sysMenu" name="deleteForm" (ngSubmit)="confirmDelete(sysMenu?.id!)">
     <div class="modal-header">
         <h4 class="modal-title" jhiTranslate="entity.delete.title">Confirm delete operation</h4>
 
@@ -9,7 +9,7 @@
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
 
-        <p id="jhi-delete-operationLog-heading" jhiTranslate="frameworkApp.operationLog.delete.question" [translateValues]="{ id: operationLog.id }">Are you sure you want to delete this Operation Log?</p>
+        <p id="jhi-delete-sysMenu-heading" jhiTranslate="frameworkApp.sysMenu.delete.question" [translateValues]="{ id: sysMenu.id }">Are you sure you want to delete this Sys Menu?</p>
     </div>
 
     <div class="modal-footer">
@@ -17,7 +17,7 @@
             <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
         </button>
 
-        <button id="jhi-confirm-delete-operationLog" type="submit" class="btn btn-danger">
+        <button id="jhi-confirm-delete-sysMenu" type="submit" class="btn btn-danger">
             <fa-icon icon="times"></fa-icon>&nbsp;<span jhiTranslate="entity.action.delete">Delete</span>
         </button>
     </div>

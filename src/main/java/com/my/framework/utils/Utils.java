@@ -40,29 +40,6 @@ public class Utils {
         return string.toString();
     }
 
-    /**
-     * json string to map
-     */
-    public static HashMap jsonToMap(String jsonString) {
-        JSONObject jsonObject = JSON.parseObject(jsonString);
-        return JSONObject.parseObject(String.valueOf(JSON.parse(JSONObject.toJSONString(jsonObject))), HashMap.class);
-    }
-
-    /**
-     * json object to map
-     */
-    public static HashMap jsonToMap(Object jsonObject) {
-        return jsonToMap(String.valueOf(jsonObject));
-    }
-
-    /**
-     * .json file to map
-     */
-    public static HashMap jsonToMap(MultipartFile file) throws IOException {
-        String s = new String(file.getBytes());
-        return jsonToMap(s);
-    }
-
     public static <T> T map2Object(Map<String, Object> map, Class<T> clazz) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         if (map == null) {

@@ -1,0 +1,136 @@
+{
+  "name": "SysMenu",
+  "fields": [
+    {
+      "fieldName": "createdBy",
+      "fieldType": "String",
+      "javadoc": "创建人",
+      "fieldValidateRules": [
+        "maxlength"
+      ],
+      "fieldValidateRulesMaxlength": "64"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "Instant",
+      "javadoc": "创建时间"
+    },
+    {
+      "fieldName": "lastModifiedBy",
+      "fieldType": "String",
+      "javadoc": "更新人",
+      "fieldValidateRules": [
+        "maxlength"
+      ],
+      "fieldValidateRulesMaxlength": "64"
+    },
+    {
+      "fieldName": "lastModifiedDate",
+      "fieldType": "Instant",
+      "javadoc": "更新时间"
+    },
+    {
+      "fieldName": "deleted",
+      "fieldType": "Boolean",
+      "javadoc": "是否删除"
+    },
+    {
+      "fieldName": "code",
+      "fieldType": "String",
+      "javadoc": "菜单编码",
+      "fieldValidateRules": [
+        "maxlength"
+      ],
+      "fieldValidateRulesMaxlength": "64"
+    },
+    {
+      "fieldName": "parentIds",
+      "fieldType": "String",
+      "javadoc": "所有父级ID",
+      "fieldValidateRules": [
+        "maxlength"
+      ],
+      "fieldValidateRulesMaxlength": "3072"
+    },
+    {
+      "fieldName": "siblingSort",
+      "fieldType": "Integer",
+      "javadoc": "同级排序"
+    },
+    {
+      "fieldName": "globalSort",
+      "fieldType": "Integer",
+      "javadoc": "全局排序"
+    },
+    {
+      "fieldName": "leaf",
+      "fieldType": "Boolean",
+      "javadoc": "是否最末级"
+    },
+    {
+      "fieldName": "level",
+      "fieldType": "Integer",
+      "javadoc": "层次级别"
+    },
+    {
+      "fieldName": "shortName",
+      "fieldType": "String",
+      "javadoc": "菜单简称",
+      "fieldValidateRules": [
+        "maxlength"
+      ],
+      "fieldValidateRulesMaxlength": "128"
+    },
+    {
+      "fieldName": "fullName",
+      "fieldType": "String",
+      "javadoc": "菜单全名",
+      "fieldValidateRules": [
+        "maxlength"
+      ],
+      "fieldValidateRulesMaxlength": "128"
+    },
+    {
+      "fieldName": "href",
+      "fieldType": "String",
+      "javadoc": "链接",
+      "fieldValidateRules": [
+        "maxlength"
+      ],
+      "fieldValidateRulesMaxlength": "2000"
+    },
+    {
+      "fieldName": "icon",
+      "fieldType": "String",
+      "javadoc": "图标",
+      "fieldValidateRules": [
+        "maxlength"
+      ],
+      "fieldValidateRulesMaxlength": "2000"
+    },
+    {
+      "fieldName": "visible",
+      "fieldType": "Boolean",
+      "javadoc": "是否显示"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "MenuStatusType",
+      "javadoc": "菜单状态",
+      "fieldValues": "NORMAL,DELETE,DISABLE"
+    }
+  ],
+  "relationships": [],
+  "changelogDate": "20210429114738",
+  "javadoc": "菜单表",
+  "entityTableName": "sys_menu",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

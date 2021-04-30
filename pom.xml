@@ -1024,6 +1024,13 @@
                     <version>4.5.11</version>
                 </dependency>
 
+                <!-- JSON解析 -->
+                <dependency>
+                    <groupId>org.javers</groupId>
+                    <artifactId>javers-core</artifactId>
+                    <version>6.1.0</version>
+                </dependency>
+
             </dependencies>
             <properties>
                 <!-- default Spring profiles -->

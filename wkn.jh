@@ -1,0 +1,32 @@
+/**
+ * 菜单表
+ */
+entity SysMenu {
+    createdBy               String maxlength(64)            /** 创建人 */
+    createdDate             Instant                         /** 创建时间 */
+    lastModifiedBy          String maxlength(64)            /** 更新人 */
+    lastModifiedDate        Instant                         /** 更新时间 */
+    deleted                 Boolean                         /** 是否删除 */
+    code                    String maxlength(64)            /** 菜单编码 */
+    parentIds	            String maxlength(3072) 	        /** 所有父级ID */
+    siblingSort	            Integer	                        /** 同级排序 */
+    globalSort              Integer	                        /** 全局排序 */
+    leaf                    Boolean                         /** 是否最末级 */
+    level                   Integer                         /** 层次级别 */
+    shortName               String maxlength(128)           /** 菜单简称 */
+    fullName                String maxlength(128)           /** 菜单全名 */
+    href                    String maxlength(2000)          /** 链接 */
+    icon                    String maxlength(2000)          /** 图标 */
+    visible                 Boolean                         /** 是否显示 */
+    status                  MenuStatusType	                /** 菜单状态 */
+}
+
+/**
+ * 菜单状态类型
+ * 正常|删除|停用
+ */
+enum MenuStatusType {
+    NORMAL,
+    DELETE,
+    DISABLE
+}

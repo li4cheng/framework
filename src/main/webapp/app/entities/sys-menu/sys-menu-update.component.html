@@ -1,0 +1,181 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-sys-menu-heading" jhiTranslate="frameworkApp.sysMenu.home.createOrEditLabel">Create or edit a Sys Menu</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="frameworkApp.sysMenu.createdBy" for="field_createdBy" [ngbTooltip]="'frameworkApp.sysMenu.help.createdBy' | translate">Created By</label>
+                    <input type="text" class="form-control" name="createdBy" id="field_createdBy"
+                           formControlName="createdBy"/>
+                    <div *ngIf="editForm.get('createdBy')!.invalid && (editForm.get('createdBy')!.dirty || editForm.get('createdBy')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('createdBy')?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 64 }">
+                        This field cannot be longer than 64 characters.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="frameworkApp.sysMenu.createdDate" for="field_createdDate" [ngbTooltip]="'frameworkApp.sysMenu.help.createdDate' | translate">Created Date</label>
+                    <div class="d-flex">
+                        <input id="field_createdDate" type="datetime-local" class="form-control" name="createdDate" formControlName="createdDate" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="frameworkApp.sysMenu.lastModifiedBy" for="field_lastModifiedBy" [ngbTooltip]="'frameworkApp.sysMenu.help.lastModifiedBy' | translate">Last Modified By</label>
+                    <input type="text" class="form-control" name="lastModifiedBy" id="field_lastModifiedBy"
+                           formControlName="lastModifiedBy"/>
+                    <div *ngIf="editForm.get('lastModifiedBy')!.invalid && (editForm.get('lastModifiedBy')!.dirty || editForm.get('lastModifiedBy')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('lastModifiedBy')?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 64 }">
+                        This field cannot be longer than 64 characters.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="frameworkApp.sysMenu.lastModifiedDate" for="field_lastModifiedDate" [ngbTooltip]="'frameworkApp.sysMenu.help.lastModifiedDate' | translate">Last Modified Date</label>
+                    <div class="d-flex">
+                        <input id="field_lastModifiedDate" type="datetime-local" class="form-control" name="lastModifiedDate" formControlName="lastModifiedDate" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="frameworkApp.sysMenu.deleted" for="field_deleted" [ngbTooltip]="'frameworkApp.sysMenu.help.deleted' | translate">Deleted</label>
+                    <input type="checkbox" class="form-control" name="deleted" id="field_deleted"
+                           formControlName="deleted"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="frameworkApp.sysMenu.code" for="field_code" [ngbTooltip]="'frameworkApp.sysMenu.help.code' | translate">Code</label>
+                    <input type="text" class="form-control" name="code" id="field_code"
+                           formControlName="code"/>
+                    <div *ngIf="editForm.get('code')!.invalid && (editForm.get('code')!.dirty || editForm.get('code')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('code')?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 64 }">
+                        This field cannot be longer than 64 characters.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="frameworkApp.sysMenu.parentIds" for="field_parentIds" [ngbTooltip]="'frameworkApp.sysMenu.help.parentIds' | translate">Parent Ids</label>
+                    <input type="text" class="form-control" name="parentIds" id="field_parentIds"
+                           formControlName="parentIds"/>
+                    <div *ngIf="editForm.get('parentIds')!.invalid && (editForm.get('parentIds')!.dirty || editForm.get('parentIds')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('parentIds')?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 3072 }">
+                        This field cannot be longer than 3072 characters.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="frameworkApp.sysMenu.siblingSort" for="field_siblingSort" [ngbTooltip]="'frameworkApp.sysMenu.help.siblingSort' | translate">Sibling Sort</label>
+                    <input type="number" class="form-control" name="siblingSort" id="field_siblingSort"
+                           formControlName="siblingSort"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="frameworkApp.sysMenu.globalSort" for="field_globalSort" [ngbTooltip]="'frameworkApp.sysMenu.help.globalSort' | translate">Global Sort</label>
+                    <input type="number" class="form-control" name="globalSort" id="field_globalSort"
+                           formControlName="globalSort"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="frameworkApp.sysMenu.leaf" for="field_leaf" [ngbTooltip]="'frameworkApp.sysMenu.help.leaf' | translate">Leaf</label>
+                    <input type="checkbox" class="form-control" name="leaf" id="field_leaf"
+                           formControlName="leaf"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="frameworkApp.sysMenu.level" for="field_level" [ngbTooltip]="'frameworkApp.sysMenu.help.level' | translate">Level</label>
+                    <input type="number" class="form-control" name="level" id="field_level"
+                           formControlName="level"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="frameworkApp.sysMenu.shortName" for="field_shortName" [ngbTooltip]="'frameworkApp.sysMenu.help.shortName' | translate">Short Name</label>
+                    <input type="text" class="form-control" name="shortName" id="field_shortName"
+                           formControlName="shortName"/>
+                    <div *ngIf="editForm.get('shortName')!.invalid && (editForm.get('shortName')!.dirty || editForm.get('shortName')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('shortName')?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 128 }">
+                        This field cannot be longer than 128 characters.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="frameworkApp.sysMenu.fullName" for="field_fullName" [ngbTooltip]="'frameworkApp.sysMenu.help.fullName' | translate">Full Name</label>
+                    <input type="text" class="form-control" name="fullName" id="field_fullName"
+                           formControlName="fullName"/>
+                    <div *ngIf="editForm.get('fullName')!.invalid && (editForm.get('fullName')!.dirty || editForm.get('fullName')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('fullName')?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 128 }">
+                        This field cannot be longer than 128 characters.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="frameworkApp.sysMenu.href" for="field_href" [ngbTooltip]="'frameworkApp.sysMenu.help.href' | translate">Href</label>
+                    <input type="text" class="form-control" name="href" id="field_href"
+                           formControlName="href"/>
+                    <div *ngIf="editForm.get('href')!.invalid && (editForm.get('href')!.dirty || editForm.get('href')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('href')?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 2000 }">
+                        This field cannot be longer than 2000 characters.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="frameworkApp.sysMenu.icon" for="field_icon" [ngbTooltip]="'frameworkApp.sysMenu.help.icon' | translate">Icon</label>
+                    <input type="text" class="form-control" name="icon" id="field_icon"
+                           formControlName="icon"/>
+                    <div *ngIf="editForm.get('icon')!.invalid && (editForm.get('icon')!.dirty || editForm.get('icon')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('icon')?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 2000 }">
+                        This field cannot be longer than 2000 characters.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="frameworkApp.sysMenu.visible" for="field_visible" [ngbTooltip]="'frameworkApp.sysMenu.help.visible' | translate">Visible</label>
+                    <input type="checkbox" class="form-control" name="visible" id="field_visible"
+                           formControlName="visible"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="frameworkApp.sysMenu.status" for="field_status" [ngbTooltip]="'frameworkApp.sysMenu.help.status' | translate">Status</label>
+                    <select class="form-control" name="status" formControlName="status" id="field_status">
+                        <option value="NORMAL">{{ 'frameworkApp.MenuStatusType.NORMAL' | translate }}</option>
+                        <option value="DELETE">{{ 'frameworkApp.MenuStatusType.DELETE' | translate }}</option>
+                        <option value="DISABLE">{{ 'frameworkApp.MenuStatusType.DISABLE' | translate }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

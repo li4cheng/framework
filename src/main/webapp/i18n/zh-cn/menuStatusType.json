@@ -1,0 +1,10 @@
+{
+  "frameworkApp": {
+    "MenuStatusType": {
+      "null": "",
+      "NORMAL": "NORMAL",
+      "DELETE": "DELETE",
+      "DISABLE": "DISABLE"
+    }
+  }
+}
