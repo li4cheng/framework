@@ -1,5 +1,6 @@
 package com.my.framework.web.demo;
 
+import com.my.framework.customConfig.error.CustomException;
 import com.my.framework.domain.SysMenu;
 import com.my.framework.domain.enumeration.MenuStatusType;
 import com.my.framework.repository.SysMenuRepository;
@@ -10,9 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -20,7 +19,7 @@ import java.util.stream.Collectors;
 @Transactional
 @RestController
 @RequestMapping("/api/tree")
-@Api(tags = "树形测试")
+@Api(tags = "树形菜单")
 public class MenuTreeResource {
 
     private static final Logger log = LoggerFactory.getLogger(MenuTreeResource.class);
@@ -31,9 +30,9 @@ public class MenuTreeResource {
         this.sysMenuRepository = sysMenuRepository;
     }
 
-    @GetMapping("/tree")
-    @ApiOperation(value = "树测试")
-    public ResponseEntity<List<SysMenu>> tree() {
+    @PostMapping("/save-tree")
+    @ApiOperation(value = "保存树")
+    public ResponseEntity<List<SysMenu>> saveTree() {
         MenuTree admin_market =
             new MenuTree().fullName("商城后台").href(null).siblingSort(1).childrenMenuTree(
                 new MenuTree().fullName("会员管理").href(null).siblingSort(1).childrenMenuTree(
@@ -53,6 +52,33 @@ public class MenuTreeResource {
                     new MenuTree().fullName("角色管理").href(null).siblingSort(5)));
 
         return ResponseEntity.ok(tree2Menu(admin_market, null, 1, null));
+    }
+
+    @GetMapping("/childrenIds")
+    @ApiOperation(value = "获取子菜单id")
+    public ResponseEntity<List<Long>> getChildrenIds(@RequestParam String menuName) {
+        SysMenu sysMenu = sysMenuRepository.findByFullNameAndStatus(menuName, MenuStatusType.NORMAL)
+            .orElseThrow(() -> new CustomException("不存在该菜单"));
+        return ResponseEntity.ok(getChildrenMenuId(sysMenu));
+    }
+
+    /**
+     * 获取下级菜单id列表
+     *
+     * @param sysMenu 菜单
+     * @return 下级菜单id列表（包含自身id）
+     */
+    private List<Long> getChildrenMenuId(SysMenu sysMenu) {
+        List<Long> ids = sysMenuRepository.findAllByParentIdsAndStatus(
+            sysMenu.getParentIds() == null
+                ? String.valueOf(sysMenu.getId())
+                : String.join(",", Arrays.asList(sysMenu.getParentIds(), String.valueOf(sysMenu.getId()))), MenuStatusType.NORMAL)
+            .stream().map(this::getChildrenMenuId)
+            .flatMap(Collection::stream)
+            .collect(Collectors.toList());
+        ids.add(sysMenu.getId());
+
+        return ids.stream().distinct().sorted().collect(Collectors.toList());
     }
 
     /**

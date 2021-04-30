@@ -18,7 +18,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 @Transactional
 @RestController
 @RequestMapping("/api/blocking-queue")
-@Api(tags = "阻塞队列测试")
+@Api(tags = "阻塞队列")
 public class BlockingQueueResource {
 
     private static final Logger log = LoggerFactory.getLogger(BlockingQueueResource.class);
@@ -26,7 +26,7 @@ public class BlockingQueueResource {
     private static final LinkedBlockingQueue<HashMap<String, List<Long>>> queue = new LinkedBlockingQueue<>(5);
 
     @GetMapping("/test")
-    @ApiModelProperty(value = "阻塞队列测试")
+    @ApiModelProperty(value = "阻塞队列")
     public ResponseEntity<Object> test(@RequestParam List<Long> ids) throws InterruptedException {
 
         new Thread(new Put(String.valueOf(i++), ids)).start();
@@ -58,7 +58,7 @@ public class BlockingQueueResource {
     public static class Put implements Runnable {
 
         private final String s;
-        private List<Long> ids;
+        private final List<Long> ids;
 
         public Put(String s, List<Long> ids) {
             this.s = s;
