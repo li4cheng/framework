@@ -26,6 +26,7 @@ spring:
       - swagger
       # Uncomment to activate TLS for the dev profile
       #- tls
+      - no-liquibase
   devtools:
     restart:
       enabled: true
@@ -48,6 +49,16 @@ spring:
         prepStmtCacheSize: 250
         prepStmtCacheSqlLimit: 2048
         useServerPrepStmts: true
+    # 初始化生成表
+    schema:
+      - classpath:sql/district.sql
+    data:
+      - classpath:sql/district-data.sql
+    initialization-mode: always
+    data-username: root
+    data-password: root
+    schema-username: root
+    schema-password: root
   jpa:
     show-sql: false
   liquibase:
