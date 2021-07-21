@@ -11,9 +11,19 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "application", ignoreUnknownFields = false)
 public class ApplicationProperties {
 
+    private Boolean showLog;
+
     private String templatePath;
 
     private String path;
+
+    public Boolean getShowLog() {
+        return showLog;
+    }
+
+    public void setShowLog(Boolean showLog) {
+        this.showLog = showLog;
+    }
 
     public String getTemplatePath() {
         return templatePath;

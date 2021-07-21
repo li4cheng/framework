@@ -1,12 +1,9 @@
-package com.my.framework.web.demo;
+package com.my.framework.web.demo.Revocation;
 
-import com.alibaba.fastjson.JSONObject;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.my.framework.domain.OperationLog;
+import com.my.framework.customConfig.log.table.OperationLog;
 import com.my.framework.repository.OperationLogRepository;
 import com.my.framework.utils.JsonUtils;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.SerializationUtils;
 import org.slf4j.Logger;
@@ -17,20 +14,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Transactional
 @RestController
 @RequestMapping("/api/revocation")
-@Api(tags = "撤销")
+@Api(tags = "撤销(todo)")
 public class RevocationResource {
 
     private static final Logger log = LoggerFactory.getLogger(RevocationResource.class);
 
     private final OperationLogRepository operationLogRepository;
 
-    public RevocationResource(ObjectMapper objectMapper, OperationLogRepository operationLogRepository) {
+    public RevocationResource(OperationLogRepository operationLogRepository) {
         this.operationLogRepository = operationLogRepository;
     }
 

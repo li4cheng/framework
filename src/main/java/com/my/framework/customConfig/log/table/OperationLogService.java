@@ -1,7 +1,7 @@
-package com.my.framework.service;
+package com.my.framework.customConfig.log.table;
 
 import com.my.framework.customConfig.error.CustomException;
-import com.my.framework.domain.OperationLog;
+import com.my.framework.customConfig.log.LogTag;
 import com.my.framework.domain.User;
 import com.my.framework.repository.OperationLogRepository;
 import com.my.framework.repository.UserRepository;
@@ -27,7 +27,7 @@ public class OperationLogService {
         this.operationLogRepository = operationLogRepository;
     }
 
-    public void saveOperationLog(String interfaceName) {
+    public void saveOperationLog(String interfaceName, String paramJson, String returnValue, LogTag tag) {
         OperationLog operationLog = new OperationLog();
         operationLog.setOperationLogCode(Utils.getUUID());
         operationLog.setInterfaceName(interfaceName);
@@ -42,6 +42,9 @@ public class OperationLogService {
         }
         operationLog.setOperatorId(userOpt.get().getId());
         operationLog.setOperatorName(userOpt.get().getName());
+        operationLog.setParamJson(paramJson);
+        operationLog.setReturnValue(returnValue);
+        operationLog.setTag(tag);
         operationLogRepository.save(operationLog);
     }
 }

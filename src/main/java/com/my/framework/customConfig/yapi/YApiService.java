@@ -1,10 +1,10 @@
-package com.my.framework.service;
+package com.my.framework.customConfig.yapi;
 
 import com.alibaba.fastjson.JSONObject;
 import com.my.framework.config.ApplicationProperties;
-import com.my.framework.service.dto.yApi.PropertiesDTO;
-import com.my.framework.service.dto.yApi.YApiData;
-import com.my.framework.service.dto.yApi.YApiDataList;
+import com.my.framework.customConfig.yapi.yApi.PropertiesDTO;
+import com.my.framework.customConfig.yapi.yApi.YApiData;
+import com.my.framework.customConfig.yapi.yApi.YApiDataList;
 import com.my.framework.utils.Utils;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -34,7 +34,7 @@ public class YApiService {
     }
 
     public void saveInterface(YApiData yApiData) {
-        Map<String, Object> dataMap = new HashMap<String, Object>();
+        Map<String, Object> dataMap = new HashMap<>();
         dataMap.put("className", (StringUtils.isEmpty(yApiData.getDesc()) ? yApiData.getName() : yApiData.getDesc()).replaceAll(" ", ""));
         dataMap.put("tags", yApiData.getName());
         List<YApiDataList> list = yApiData.getList().stream().peek(yApiDataList -> {
@@ -184,7 +184,7 @@ public class YApiService {
      * type转换
      */
     private String transform(String s, JSONObject json) {
-        String type = "";
+        String type;
         switch (s) {
             case "string":
             case "text":

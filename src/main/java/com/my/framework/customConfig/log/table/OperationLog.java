@@ -1,5 +1,6 @@
-package com.my.framework.domain;
+package com.my.framework.customConfig.log.table;
 
+import com.my.framework.customConfig.log.LogTag;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -57,6 +58,28 @@ public class OperationLog implements Serializable {
     @ApiModelProperty(value = "调用接口名称")
     @Column(name = "interface_name")
     private String interfaceName;
+
+    /**
+     * 传参
+     */
+    @ApiModelProperty(value = "传参")
+    @Column(name = "param_json")
+    private String paramJson;
+
+    /**
+     * 返回值
+     */
+    @ApiModelProperty(value = "返回值")
+    @Column(name = "return_value")
+    private String returnValue;
+
+    /**
+     * 标签
+     */
+    @ApiModelProperty(value = "标签")
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tag")
+    private LogTag tag;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -131,6 +154,46 @@ public class OperationLog implements Serializable {
     public void setInterfaceName(String interfaceName) {
         this.interfaceName = interfaceName;
     }
+
+    public String getParamJson() {
+        return paramJson;
+    }
+
+    public OperationLog paramJson(String paramJson) {
+        this.paramJson = paramJson;
+        return this;
+    }
+
+    public void setParamJson(String paramJson) {
+        this.paramJson = paramJson;
+    }
+
+    public String getReturnValue() {
+        return returnValue;
+    }
+
+    public OperationLog returnValue(String returnValue) {
+        this.returnValue = returnValue;
+        return this;
+    }
+
+    public void setReturnValue(String returnValue) {
+        this.returnValue = returnValue;
+    }
+
+    public LogTag getTag() {
+        return tag;
+    }
+
+    public OperationLog tag(LogTag tag) {
+        this.tag = tag;
+        return this;
+    }
+
+    public void setTag(LogTag tag) {
+        this.tag = tag;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -159,6 +222,9 @@ public class OperationLog implements Serializable {
             ", operatorName='" + getOperatorName() + "'" +
             ", operationTime='" + getOperationTime() + "'" +
             ", interfaceName='" + getInterfaceName() + "'" +
+            ", paramJson='" + getParamJson() + "'" +
+            ", returnValue='" + getReturnValue() + "'" +
+            ", tag='" + getTag() + "'" +
             "}";
     }
 }

@@ -130,5 +130,7 @@ jhipster:
 # ===================================================================
 
 application:
+  show-log: false
+
   templatePath: src/main/resources/templates
   path: src/main/java/com/my/framework/yApi

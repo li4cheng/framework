@@ -1,10 +1,10 @@
-package com.my.framework.web.rest;
+package com.my.framework.web.demo.Yapi;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.my.framework.service.YApiService;
-import com.my.framework.service.dto.yApi.YApiData;
+import com.my.framework.customConfig.yapi.YApiService;
+import com.my.framework.customConfig.yapi.yApi.YApiData;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -18,7 +18,7 @@ import java.io.IOException;
 
 @Transactional
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/yApi")
 @Api(tags = "yApi导出")
 public class YApiResource {
 
@@ -35,14 +35,13 @@ public class YApiResource {
     public ResponseEntity<Void> getYApiInterJsonData(@RequestParam MultipartFile file) throws IOException {
         String content = new String(file.getBytes());
         JSONArray jsonArray = (JSONArray) JSONArray.parse(content);
-        jsonArray.stream()
-            .forEach(jsonObject -> {
-                String body = JSONObject.toJSONString(jsonObject);
-                Object objectJson = JSON.parse(body);
-                String s = objectJson.toString();
-                YApiData yApiData = JSONObject.parseObject(s, YApiData.class);
-                yApiService.saveInterface(yApiData);
-            });
+        jsonArray.forEach(jsonObject -> {
+            String body = JSONObject.toJSONString(jsonObject);
+            Object objectJson = JSON.parse(body);
+            String s = objectJson.toString();
+            YApiData yApiData = JSONObject.parseObject(s, YApiData.class);
+            yApiService.saveInterface(yApiData);
+        });
 
         return ResponseEntity.ok().build();
     }

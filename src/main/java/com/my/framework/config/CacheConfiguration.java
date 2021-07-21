@@ -2,6 +2,7 @@ package com.my.framework.config;
 
 import java.time.Duration;
 
+import com.my.framework.customConfig.log.table.OperationLog;
 import org.ehcache.config.builders.*;
 import org.ehcache.jsr107.Eh107Configuration;
 
@@ -48,7 +49,7 @@ public class CacheConfiguration {
             createCache(cm, com.my.framework.domain.User.class.getName());
             createCache(cm, com.my.framework.domain.Authority.class.getName());
             createCache(cm, com.my.framework.domain.User.class.getName() + ".authorities");
-            createCache(cm, com.my.framework.domain.OperationLog.class.getName());
+            createCache(cm, OperationLog.class.getName());
             createCache(cm, com.my.framework.domain.SysMenu.class.getName());
             // jhipster-needle-ehcache-add-entry
         };

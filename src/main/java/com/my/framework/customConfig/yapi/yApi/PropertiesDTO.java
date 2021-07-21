@@ -1,4 +1,4 @@
-package com.my.framework.service.dto.yApi;
+package com.my.framework.customConfig.yapi.yApi;
 
 import io.swagger.annotations.ApiModelProperty;
 

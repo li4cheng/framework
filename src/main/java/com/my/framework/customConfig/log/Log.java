@@ -6,5 +6,7 @@ import java.lang.annotation.*;
 @Retention(value = RetentionPolicy.RUNTIME)
 @Documented
 public @interface Log {
+
+    LogTag tag() default LogTag.NULL;
 }
 

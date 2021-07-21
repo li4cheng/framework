@@ -1,8 +1,7 @@
 package com.my.framework.repository;
 
-import com.my.framework.domain.OperationLog;
-
-import org.springframework.data.jpa.repository.*;
+import com.my.framework.customConfig.log.table.OperationLog;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**

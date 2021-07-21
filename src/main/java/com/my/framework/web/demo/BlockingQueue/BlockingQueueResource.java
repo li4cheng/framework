@@ -1,4 +1,4 @@
-package com.my.framework.web.demo;
+package com.my.framework.web.demo.BlockingQueue;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
