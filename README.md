@@ -35,6 +35,7 @@ optaplanner-schedule-granule 排产项目
         |..customConfig
         ||....baseEnum // 
         ||....currentUser // userModel及@currentUser配置
+        ||....entity // entitySetUtil
         ||....error // 错误信息
         ||....json // Long 传参序列化
         ||....log // 数据库表及对应的log切面

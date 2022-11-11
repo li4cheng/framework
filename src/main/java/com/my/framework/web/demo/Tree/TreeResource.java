@@ -26,12 +26,12 @@ public class TreeResource {
     @GetMapping("/demoNew")
     public List<MyTree> tree() {
         List<BaseTree<Long>> list = new ArrayList<>();
-        list.add(new MyTree<Long>().note("爷").key(1L).parentKey(null));
-        list.add(new MyTree<Long>().note("父").key(21L).parentKey(1L));
-        list.add(new MyTree<Long>().note("父子").key(211L).parentKey(21L));
-        list.add(new MyTree<Long>().note("母").key(22L).parentKey(1L));
-        list.add(new MyTree<Long>().note("母子").key(221L).parentKey(22L));
-        list.add(new MyTree<Long>().note("爷2").key(2L).parentKey(null));
+        list.add(new MyTree().note("爷").key(1L).parentKey(null));
+        list.add(new MyTree().note("父").key(21L).parentKey(1L));
+        list.add(new MyTree().note("父子").key(211L).parentKey(21L));
+        list.add(new MyTree().note("母").key(22L).parentKey(1L));
+        list.add(new MyTree().note("母子").key(221L).parentKey(22L));
+        list.add(new MyTree().note("爷2").key(2L).parentKey(null));
         return treeService.collectionToTree(list, MyTree.class);
     }
 }

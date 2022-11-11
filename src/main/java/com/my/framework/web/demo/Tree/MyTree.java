@@ -2,14 +2,11 @@ package com.my.framework.web.demo.Tree;
 
 import com.my.framework.customConfig.tree.BaseTree;
 
-/**
- * @param <T> 主键类型
- */
-public class  MyTree<T> extends BaseTree<T> {
+public class MyTree extends BaseTree<Long> {
 
     private String note;
 
-    MyTree<T> note(String note) {
+    MyTree note(String note) {
         this.note = note;
         return this;
     }

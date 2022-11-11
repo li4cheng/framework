@@ -97,12 +97,6 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
-            <dependency>
-                <groupId>org.optaplanner</groupId>
-                <artifactId>optaplanner-spring-boot-starter</artifactId>
-                <version>8.12.0.Final</version>
-            </dependency>
             <!-- jhipster-needle-maven-add-dependency-management -->
         </dependencies>
     </dependencyManagement>
@@ -261,10 +255,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.optaplanner</groupId>
-            <artifactId>optaplanner-spring-boot-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

@@ -10,6 +10,10 @@ import java.util.stream.Collectors;
 @Service
 public class TreeService {
 
+    /**
+     * map<tree.parentKey, tree>
+     * map<tree.key, tree.childrenList>
+     */
     private final Map<Object, List<BaseTree>> treeMap = new HashMap<>();
 
     /**
@@ -22,9 +26,7 @@ public class TreeService {
      */
     public <T> List<T> collectionToTree(Collection<? extends BaseTree> list, Class<T> clazz) {
         for (BaseTree baseTree : list) {
-            List<BaseTree> value = treeMap.getOrDefault(baseTree.getParentKey(), new ArrayList<>());
-            value.add(baseTree);
-            treeMap.put(baseTree.getParentKey(), value);
+            treeMap.computeIfAbsent(baseTree.getParentKey(), k -> new ArrayList<>()).add(baseTree);
         }
         for (BaseTree baseTree : list) {
             baseTree.setChildren(treeMap.get(baseTree.getKey()));
