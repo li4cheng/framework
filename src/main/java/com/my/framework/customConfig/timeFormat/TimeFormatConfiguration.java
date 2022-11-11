@@ -1,4 +1,4 @@
-package com.my.framework.config;
+package com.my.framework.customConfig.timeFormat;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
