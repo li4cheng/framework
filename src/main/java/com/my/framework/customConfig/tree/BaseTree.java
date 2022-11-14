@@ -3,10 +3,11 @@ package com.my.framework.customConfig.tree;
 import io.swagger.annotations.ApiModel;
 
 import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
 import java.util.List;
 
 @ApiModel(description = "自定义树")
-public class BaseTree<T> {
+public class BaseTree<T extends Serializable> {
 
     @NotEmpty
     private T key;
