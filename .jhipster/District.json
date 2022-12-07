@@ -1,0 +1,48 @@
+{
+  "name": "District",
+  "fields": [
+    {
+      "fieldName": "pid",
+      "fieldType": "Long",
+      "javadoc": "父id"
+    },
+    {
+      "fieldName": "deep",
+      "fieldType": "Long",
+      "javadoc": "深度"
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "javadoc": "名称"
+    },
+    {
+      "fieldName": "prefix",
+      "fieldType": "String",
+      "javadoc": "拼音首字母"
+    },
+    {
+      "fieldName": "pinyin",
+      "fieldType": "String",
+      "javadoc": "拼音"
+    },
+    {
+      "fieldName": "extName",
+      "fieldType": "String",
+      "javadoc": "别名"
+    }
+  ],
+  "relationships": [],
+  "changelogDate": "20221207092603",
+  "javadoc": "地址表",
+  "entityTableName": "district",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

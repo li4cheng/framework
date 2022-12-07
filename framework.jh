@@ -1,7 +1,13 @@
-entity OperationLog {
-    operationLogCode    String  /** 操作日志编号 */
-    operatorId          Long    /** 操作人ID */
-    operatorName        String  /** 操作人姓名 */
-    operationTime       Instant /** 操作时间 */
-    interfaceName       String  /** 调用接口名称 */
+
+
+/**
+ * 地址表
+ */
+entity District {
+    pid                 Long    /** 父id */
+    deep                Long    /** 深度 */
+    name                String  /** 名称 */
+    prefix              String  /** 拼音首字母 */
+    pinyin              String  /** 拼音 */
+    extName            String  /** 别名 */
 }
